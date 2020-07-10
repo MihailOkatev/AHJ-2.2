@@ -53,7 +53,7 @@ function tableRender() {
 <td>${item.id}</td>
 <td>${item.title}</td>
 <td>${item.year}</td>
-<td>${item.imdb}</td>
+<td>${item.imdb.toFixed(2)}</td>
 </tr>
 `);
   });
