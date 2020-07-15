@@ -1,35 +1,19 @@
-const films = [
-  {
-    id: 26,
-    title: 'Побег из Шоушенка',
-    imdb: 9.30,
-    year: 1994,
-  },
-  {
-    id: 25,
-    title: 'Крёстный отец',
-    imdb: 9.20,
-    year: 1972,
-  },
-  {
-    id: 27,
-    title: 'Крёстный отец 2',
-    imdb: 9.00,
-    year: 1974,
-  },
-  {
-    id: 1047,
-    title: 'Тёмный рыцарь',
-    imdb: 9.00,
-    year: 2008,
-  },
-  {
-    id: 223,
-    title: 'Криминальное чтиво',
-    imdb: 8.90,
-    year: 1994,
-  },
-];
+let films;
+const request = new XMLHttpRequest();
+
+function reqListener(e) {
+  films = request.response;
+  films = JSON.parse(films);
+}
+
+function jsonLoading() {
+  request.onload = reqListener;
+  request.open('get', './data.json', true);
+  request.send();
+}
+
+
+
 
 const table = document.createElement('table');
 table.classList.add('table_sort');
@@ -88,11 +72,10 @@ const clicklinks = Array.from(document.querySelectorAll('.tableLink'));
 clicklinks.forEach((item) => {
   item.addEventListener('click', (evt) => {
     evt.preventDefault();
-    // eslint-disable-next-line no-shadow
-    clicklinks.forEach((item) => { item.classList.remove('arrowUP', 'arrowDown'); });
+    clicklinks.forEach((element) => { element.classList.remove('arrowUP', 'arrowDown'); });
     sortByAttr(evt.target.getAttribute('sort'), evt.target);
     tableRender();
   });
 });
-
+jsonLoading();
 tableRender();
